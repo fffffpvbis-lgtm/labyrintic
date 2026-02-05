@@ -28,7 +28,6 @@
         <button class="nav-button" data-view="files">Fichiers</button>
         <button class="nav-button" data-view="explorer">Exploration</button>
         <button class="nav-button" data-view="solver">Résolution</button>
-        <button class="nav-button" data-view="documentation">Documentation</button>
       </nav>
     </header>
 
@@ -44,13 +43,13 @@
             </p>
             <div class="hero-actions">
               <button class="primary" data-nav="generator">Créer un labyrinthe</button>
-              <button class="ghost" data-nav="documentation">Comprendre les algorithmes</button>
+              <button class="ghost" data-nav="files">Ouvrir une création</button>
             </div>
           </div>
           <div class="hero-panel">
             <div class="panel-grid">
               <div class="stat">
-                <p class="stat-label">Algorithmes de génération</p>
+                <p class="stat-label">Algorithmes disponibles</p>
                 <p class="stat-value" id="stat-algorithms">12</p>
               </div>
               <div class="stat">
@@ -58,8 +57,8 @@
                 <p class="stat-value" id="stat-saved">0</p>
               </div>
               <div class="stat">
-                <p class="stat-label">Solveurs disponibles</p>
-                <p class="stat-value" id="stat-solvers">8</p>
+                <p class="stat-label">Étages simulés</p>
+                <p class="stat-value" id="stat-floors">1+</p>
               </div>
             </div>
             <div class="panel-preview">
@@ -67,6 +66,24 @@
               <canvas id="home-preview" width="240" height="240" aria-label="Aperçu du labyrinthe"></canvas>
             </div>
           </div>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Générateur avancé</h3>
+            <p>Comparez des algorithmes classiques et expérimentaux, ajustez la densité, les biais et la taille.</p>
+          </article>
+          <article>
+            <h3>Gestionnaire de fichiers</h3>
+            <p>Organisez vos labyrinthes, ajoutez des tags, exportez et archivez vos créations.</p>
+          </article>
+          <article>
+            <h3>Exploration en immersion</h3>
+            <p>Chargez un labyrinthe et explorez-le à la première personne grâce à la vue immersive.</p>
+          </article>
+          <article>
+            <h3>Résolution animée</h3>
+            <p>Choisissez un solveur, ajustez la vitesse et observez la progression en temps réel.</p>
+          </article>
         </div>
       </section>
 
@@ -78,15 +95,33 @@
         <div class="generator-layout">
           <form id="generator-form" class="card">
             <h3>Paramètres</h3>
-            <label>Nom du labyrinthe<input type="text" name="name" placeholder="Ex. Forteresse émeraude" required /></label>
-            <label>Algorithme<select name="algorithm"></select></label>
+            <label>
+              Nom du labyrinthe
+              <input type="text" name="name" placeholder="Ex. Forteresse émeraude" required />
+            </label>
+            <label>
+              Algorithme
+              <select name="algorithm"></select>
+            </label>
             <div class="field-row">
-              <label>Colonnes<input type="number" name="cols" min="8" max="60" value="24" /></label>
-              <label>Rangées<input type="number" name="rows" min="8" max="60" value="24" /></label>
+              <label>
+                Colonnes
+                <input type="number" name="cols" min="8" max="60" value="24" />
+              </label>
+              <label>
+                Rangées
+                <input type="number" name="rows" min="8" max="60" value="24" />
+              </label>
             </div>
             <div class="field-row">
-              <label>Étages<input type="number" name="floors" min="1" max="5" value="1" /></label>
-              <label>Densité de murs (%)<input type="number" name="density" min="20" max="80" value="50" /></label>
+              <label>
+                Étages
+                <input type="number" name="floors" min="1" max="5" value="1" />
+              </label>
+              <label>
+                Densité de murs (%)
+                <input type="number" name="density" min="20" max="80" value="50" />
+              </label>
             </div>
             <label>
               Biais directionnel
@@ -96,7 +131,10 @@
                 <option value="vertical">Vertical</option>
               </select>
             </label>
-            <label>Complexité des cycles<input type="range" name="loops" min="0" max="100" value="20" /></label>
+            <label>
+              Complexité des cycles
+              <input type="range" name="loops" min="0" max="100" value="20" />
+            </label>
             <button type="submit" class="primary">Générer &amp; sauvegarder</button>
             <p class="hint">Les labyrinthes sont conservés localement dans votre navigateur.</p>
           </form>
@@ -136,7 +174,10 @@
         <div class="explorer-layout">
           <div class="card">
             <h3>Chargeur de labyrinthe</h3>
-            <label>Labyrinthe<select id="explorer-select"></select></label>
+            <label>
+              Labyrinthe
+              <select id="explorer-select"></select>
+            </label>
             <button class="primary" id="explorer-load">Charger</button>
             <div class="explorer-stats" id="explorer-stats"></div>
             <div class="controls">
@@ -170,39 +211,36 @@
         <div class="solver-layout">
           <div class="card">
             <h3>Configurer le solveur</h3>
-            <label>Labyrinthe<select id="solver-select"></select></label>
+            <label>
+              Labyrinthe
+              <select id="solver-select"></select>
+            </label>
             <label>
               Algorithme de résolution
               <select id="solver-algorithm">
                 <option value="bfs">BFS (largeur)</option>
                 <option value="dfs">DFS (profondeur)</option>
-                <option value="astar">A* (heuristique)</option>
+                <option value="astar">A*</option>
                 <option value="dijkstra">Dijkstra</option>
-                <option value="greedy">Greedy Best-First</option>
-                <option value="wallfollower">Suivi de mur (main droite)</option>
-                <option value="random-walk">Random Mouse (très inefficace)</option>
-                <option value="depth-limited">DFS limitée (ancienne méthode)</option>
+                <option value="wallfollower">Suivi de mur</option>
               </select>
             </label>
-            <label>Vitesse (ms par étape)<input type="range" id="solver-speed" min="10" max="300" value="120" /></label>
+            <label>
+              Vitesse (ms par étape)
+              <input type="range" id="solver-speed" min="20" max="300" value="120" />
+            </label>
             <button class="primary" id="solver-start">Lancer</button>
             <button class="ghost" id="solver-stop">Arrêter</button>
-            <p class="hint" id="solver-note">Comparez aussi les solveurs inefficaces pour voir leurs limites.</p>
+            <p class="hint" id="solver-note">BFS et A* sont disponibles pour la démonstration actuelle.</p>
           </div>
           <div class="card">
             <h3>Visualisation</h3>
             <canvas id="solver-canvas" width="320" height="320" aria-label="Visualisation du solveur"></canvas>
-            <div class="card-footer"><p id="solver-status">Chargez un labyrinthe pour commencer la résolution.</p></div>
+            <div class="card-footer">
+              <p id="solver-status">Chargez un labyrinthe pour commencer la résolution.</p>
+            </div>
           </div>
         </div>
-      </section>
-
-      <section id="view-documentation" class="view">
-        <div class="section-header">
-          <h2>Documentation des algorithmes</h2>
-          <p>Détails techniques + version vulgarisée pour chaque algorithme du générateur et du solveur.</p>
-        </div>
-        <div class="documentation-layout" id="documentation-list"></div>
       </section>
     </main>
   </div>

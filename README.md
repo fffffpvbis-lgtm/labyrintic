@@ -3,6 +3,9 @@
 Prototype d'application de labyrinthe (génération, gestion, exploration et résolution) pensé pour évoluer avec de nouveaux modules.
 
 ## Lancer le logiciel
+## Tester immédiatement (déjà exécuté)
+
+Le projet a été lancé localement avec :
 
 ```bash
 ./run_local.sh
@@ -11,6 +14,17 @@ Prototype d'application de labyrinthe (génération, gestion, exploration et ré
 Puis ouvrez `http://localhost:5001`.
 
 Option alternative :
+Puis accessible dans le navigateur à l'adresse `http://localhost:5001`.
+
+## Lancer le logiciel vous-même
+
+### Option recommandée
+
+```bash
+./run_local.sh
+```
+
+### Option alternative (sans script)
 
 ```bash
 python -m http.server 5001
@@ -30,3 +44,21 @@ python -m http.server 5001
 1. Créer un labyrinthe dans **Générateur** puis l'enregistrer.
 2. Ouvrir **Résolution** et comparer un solveur efficace (A*) et un solveur inefficace (Random Mouse).
 3. Ouvrir **Documentation** pour lire les explications algorithmiques.
+Ensuite :
+1. Ouvrez votre navigateur.
+2. Allez sur `http://localhost:5001`.
+3. Testez les sections **Générateur**, **Fichiers**, **Exploration**, **Résolution**.
+
+## Fonctionnalités actuelles
+
+- Menu central enrichissable et identité graphique.
+- Générateur avec paramètres, aperçu et sauvegarde locale.
+- Gestionnaire de fichiers (stockage local du navigateur).
+- Exploration en pseudo-vue à la première personne.
+- Résolution animée avec BFS / A*.
+
+## Prochaines étapes suggérées
+
+- Ajouter d'autres algorithmes de génération et de résolution.
+- Ajouter un format d'export/import (.maze).
+- Construire une vraie vue 3D ou WebGL.
