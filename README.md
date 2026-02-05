@@ -2,6 +2,7 @@
 
 Prototype d'application de labyrinthe (génération, gestion, exploration et résolution) pensé pour évoluer avec de nouveaux modules.
 
+## Lancer le logiciel
 ## Tester immédiatement (déjà exécuté)
 
 Le projet a été lancé localement avec :
@@ -10,6 +11,9 @@ Le projet a été lancé localement avec :
 ./run_local.sh
 ```
 
+Puis ouvrez `http://localhost:5001`.
+
+Option alternative :
 Puis accessible dans le navigateur à l'adresse `http://localhost:5001`.
 
 ## Lancer le logiciel vous-même
@@ -26,6 +30,20 @@ Puis accessible dans le navigateur à l'adresse `http://localhost:5001`.
 python -m http.server 5001
 ```
 
+## Fonctionnalités actuelles
+
+- Menu central : Accueil, Générateur, Fichiers, Exploration, Résolution, Documentation.
+- Générateur avec paramètres, aperçu et sauvegarde locale.
+- Gestionnaire de fichiers (stockage local du navigateur).
+- Exploration en pseudo-vue à la première personne.
+- Solveurs variés : BFS, DFS, A*, Dijkstra, Greedy, Wall Follower, Random Mouse, DFS limitée.
+- Section Documentation : chaque algorithme est expliqué en mode détaillé + vulgarisé.
+
+## Test manuel conseillé
+
+1. Créer un labyrinthe dans **Générateur** puis l'enregistrer.
+2. Ouvrir **Résolution** et comparer un solveur efficace (A*) et un solveur inefficace (Random Mouse).
+3. Ouvrir **Documentation** pour lire les explications algorithmiques.
 Ensuite :
 1. Ouvrez votre navigateur.
 2. Allez sur `http://localhost:5001`.
