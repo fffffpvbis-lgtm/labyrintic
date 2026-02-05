@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labyrintic</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark">L</div>
+        <div>
+          <p class="brand-title">Labyrintic</p>
+          <p class="brand-subtitle">Studio de labyrinthes modulaires</p>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <button class="nav-button active" data-view="home">Accueil</button>
+        <button class="nav-button" data-view="generator">Générateur</button>
+        <button class="nav-button" data-view="files">Fichiers</button>
+        <button class="nav-button" data-view="explorer">Exploration</button>
+        <button class="nav-button" data-view="solver">Résolution</button>
+        <button class="nav-button" data-view="documentation">Documentation</button>
+      </nav>
+    </header>
+
+    <main class="app-content">
+      <section id="view-home" class="view active">
+        <div class="hero">
+          <div>
+            <p class="hero-kicker">Identité visuelle &amp; moteur évolutif</p>
+            <h1>Concevez, explorez et résolvez des labyrinthes comme jamais auparavant.</h1>
+            <p class="hero-lead">
+              Labyrintic rassemble un générateur multi-algorithmes, un explorateur immersif et un
+              visualiseur de résolution. Tout est centralisé pour comparer et partager vos labyrinthes.
+            </p>
+            <div class="hero-actions">
+              <button class="primary" data-nav="generator">Créer un labyrinthe</button>
+              <button class="ghost" data-nav="documentation">Comprendre les algorithmes</button>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="panel-grid">
+              <div class="stat">
+                <p class="stat-label">Algorithmes de génération</p>
+                <p class="stat-value" id="stat-algorithms">12</p>
+              </div>
+              <div class="stat">
+                <p class="stat-label">Labyrinthes sauvegardés</p>
+                <p class="stat-value" id="stat-saved">0</p>
+              </div>
+              <div class="stat">
+                <p class="stat-label">Solveurs disponibles</p>
+                <p class="stat-value" id="stat-solvers">8</p>
+              </div>
+            </div>
+            <div class="panel-preview">
+              <p>Prévisualisation rapide</p>
+              <canvas id="home-preview" width="240" height="240" aria-label="Aperçu du labyrinthe"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-generator" class="view">
+        <div class="section-header">
+          <h2>Générateur de labyrinthes</h2>
+          <p>Configurez un labyrinthe, comparez plusieurs algorithmes et sauvegardez votre création.</p>
+        </div>
+        <div class="generator-layout">
+          <form id="generator-form" class="card">
+            <h3>Paramètres</h3>
+            <label>Nom du labyrinthe<input type="text" name="name" placeholder="Ex. Forteresse émeraude" required /></label>
+            <label>Algorithme<select name="algorithm"></select></label>
+            <div class="field-row">
+              <label>Colonnes<input type="number" name="cols" min="8" max="60" value="24" /></label>
+              <label>Rangées<input type="number" name="rows" min="8" max="60" value="24" /></label>
+            </div>
+            <div class="field-row">
+              <label>Étages<input type="number" name="floors" min="1" max="5" value="1" /></label>
+              <label>Densité de murs (%)<input type="number" name="density" min="20" max="80" value="50" /></label>
+            </div>
+            <label>
+              Biais directionnel
+              <select name="bias">
+                <option value="balanced">Équilibré</option>
+                <option value="horizontal">Horizontal</option>
+                <option value="vertical">Vertical</option>
+              </select>
+            </label>
+            <label>Complexité des cycles<input type="range" name="loops" min="0" max="100" value="20" /></label>
+            <button type="submit" class="primary">Générer &amp; sauvegarder</button>
+            <p class="hint">Les labyrinthes sont conservés localement dans votre navigateur.</p>
+          </form>
+          <div class="card">
+            <h3>Aperçu</h3>
+            <canvas id="generator-preview" width="320" height="320" aria-label="Aperçu du labyrinthe"></canvas>
+            <div class="card-footer">
+              <p id="generator-note">Sélectionnez un algorithme pour voir un aperçu.</p>
+              <button class="ghost" id="generator-refresh" type="button">Régénérer</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-files" class="view">
+        <div class="section-header">
+          <h2>Gestionnaire de fichiers</h2>
+          <p>Accédez à vos labyrinthes, gérez les tags et préparez l'exploration.</p>
+        </div>
+        <div class="files-layout">
+          <div class="card">
+            <h3>Bibliothèque</h3>
+            <div id="files-list" class="files-list"></div>
+          </div>
+          <div class="card" id="files-detail">
+            <h3>Détails</h3>
+            <p>Sélectionnez un labyrinthe pour afficher ses informations.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-explorer" class="view">
+        <div class="section-header">
+          <h2>Exploration immersive</h2>
+          <p>Chargez un labyrinthe et explorez-le à la première personne.</p>
+        </div>
+        <div class="explorer-layout">
+          <div class="card">
+            <h3>Chargeur de labyrinthe</h3>
+            <label>Labyrinthe<select id="explorer-select"></select></label>
+            <button class="primary" id="explorer-load">Charger</button>
+            <div class="explorer-stats" id="explorer-stats"></div>
+            <div class="controls">
+              <button id="move-forward">Avancer</button>
+              <div>
+                <button id="turn-left">⟲</button>
+                <button id="turn-right">⟳</button>
+              </div>
+              <button id="move-back">Reculer</button>
+            </div>
+            <p class="hint">Utilisez aussi les touches ZQSD ou les flèches pour vous déplacer.</p>
+          </div>
+          <div class="card explorer-view">
+            <h3>Vue à la première personne</h3>
+            <div class="first-person" id="first-person">
+              <div class="wall wall-left"></div>
+              <div class="wall wall-front"></div>
+              <div class="wall wall-right"></div>
+              <div class="floor"></div>
+            </div>
+            <p class="hint" id="explorer-status">Chargez un labyrinthe pour commencer l'exploration.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-solver" class="view">
+        <div class="section-header">
+          <h2>Résolution animée</h2>
+          <p>Choisissez un solveur, ajustez la vitesse et visualisez chaque étape.</p>
+        </div>
+        <div class="solver-layout">
+          <div class="card">
+            <h3>Configurer le solveur</h3>
+            <label>Labyrinthe<select id="solver-select"></select></label>
+            <label>
+              Algorithme de résolution
+              <select id="solver-algorithm">
+                <option value="bfs">BFS (largeur)</option>
+                <option value="dfs">DFS (profondeur)</option>
+                <option value="astar">A* (heuristique)</option>
+                <option value="dijkstra">Dijkstra</option>
+                <option value="greedy">Greedy Best-First</option>
+                <option value="wallfollower">Suivi de mur (main droite)</option>
+                <option value="random-walk">Random Mouse (très inefficace)</option>
+                <option value="depth-limited">DFS limitée (ancienne méthode)</option>
+              </select>
+            </label>
+            <label>Vitesse (ms par étape)<input type="range" id="solver-speed" min="10" max="300" value="120" /></label>
+            <button class="primary" id="solver-start">Lancer</button>
+            <button class="ghost" id="solver-stop">Arrêter</button>
+            <p class="hint" id="solver-note">Comparez aussi les solveurs inefficaces pour voir leurs limites.</p>
+          </div>
+          <div class="card">
+            <h3>Visualisation</h3>
+            <canvas id="solver-canvas" width="320" height="320" aria-label="Visualisation du solveur"></canvas>
+            <div class="card-footer"><p id="solver-status">Chargez un labyrinthe pour commencer la résolution.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-documentation" class="view">
+        <div class="section-header">
+          <h2>Documentation des algorithmes</h2>
+          <p>Détails techniques + version vulgarisée pour chaque algorithme du générateur et du solveur.</p>
+        </div>
+        <div class="documentation-layout" id="documentation-list"></div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
