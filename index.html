@@ -3,309 +3,247 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Labyrintic — Atelier de labyrinthes</title>
+  <title>Labyrintic</title>
+  <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
 </head>
 <body>
   <div class="app">
-    <header class="topbar">
+    <header class="app-header">
       <div class="brand">
-        <span class="brand__mark">⟁</span>
+        <div class="brand-mark">L</div>
         <div>
-          <p class="brand__title">Labyrintic</p>
-          <p class="brand__subtitle">Atelier de labyrinthes multi-dimensionnels</p>
+          <p class="brand-title">Labyrintic</p>
+          <p class="brand-subtitle">Studio de labyrinthes modulaires</p>
         </div>
       </div>
-      <div class="topbar__meta">
-        <div class="status">
-          <span class="status__dot"></span>
-          <span>Serveur local</span>
-          <strong>localhost:5001</strong>
-        </div>
-        <button class="button button--ghost">Synchroniser</button>
-      </div>
+      <nav class="main-nav">
+        <button class="nav-button active" data-view="home">Accueil</button>
+        <button class="nav-button" data-view="generator">Générateur</button>
+        <button class="nav-button" data-view="files">Fichiers</button>
+        <button class="nav-button" data-view="explorer">Exploration</button>
+        <button class="nav-button" data-view="solver">Résolution</button>
+      </nav>
     </header>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <nav class="menu">
-          <button class="menu__item is-active" data-panel="overview">
-            <span>Accueil</span>
-            <small>Vue d'ensemble</small>
-          </button>
-          <button class="menu__item" data-panel="generator">
-            <span>Générateur</span>
-            <small>Algorithmes & paramètres</small>
-          </button>
-          <button class="menu__item" data-panel="files">
-            <span>Gestion des fichiers</span>
-            <small>Bibliothèque de labyrinthes</small>
-          </button>
-          <button class="menu__item" data-panel="explorer">
-            <span>Exploration FPS</span>
-            <small>Parcours immersif</small>
-          </button>
-          <button class="menu__item" data-panel="solver">
-            <span>Résolveur</span>
-            <small>Visualisation des algos</small>
-          </button>
-          <button class="menu__item" data-panel="identity">
-            <span>Identité visuelle</span>
-            <small>Palette & ambiance</small>
-          </button>
-        </nav>
-
-        <div class="sidebar__footer">
-          <h4>Prochaine étape</h4>
-          <p>Connecter les algorithmes avancés et la sauvegarde multi-niveaux.</p>
-          <button class="button">Planifier</button>
+    <main class="app-content">
+      <section id="view-home" class="view active">
+        <div class="hero">
+          <div>
+            <p class="hero-kicker">Identité visuelle &amp; moteur évolutif</p>
+            <h1>Concevez, explorez et résolvez des labyrinthes comme jamais auparavant.</h1>
+            <p class="hero-lead">
+              Labyrintic rassemble un générateur multi-algorithmes, un explorateur immersif et un
+              visualiseur de résolution. Tout est centralisé pour comparer et partager vos labyrinthes.
+            </p>
+            <div class="hero-actions">
+              <button class="primary" data-nav="generator">Créer un labyrinthe</button>
+              <button class="ghost" data-nav="files">Ouvrir une création</button>
+            </div>
+          </div>
+          <div class="hero-panel">
+            <div class="panel-grid">
+              <div class="stat">
+                <p class="stat-label">Algorithmes disponibles</p>
+                <p class="stat-value" id="stat-algorithms">12</p>
+              </div>
+              <div class="stat">
+                <p class="stat-label">Labyrinthes sauvegardés</p>
+                <p class="stat-value" id="stat-saved">0</p>
+              </div>
+              <div class="stat">
+                <p class="stat-label">Étages simulés</p>
+                <p class="stat-value" id="stat-floors">1+</p>
+              </div>
+            </div>
+            <div class="panel-preview">
+              <p>Prévisualisation rapide</p>
+              <canvas id="home-preview" width="240" height="240" aria-label="Aperçu du labyrinthe"></canvas>
+            </div>
+          </div>
         </div>
-      </aside>
+        <div class="feature-grid">
+          <article>
+            <h3>Générateur avancé</h3>
+            <p>Comparez des algorithmes classiques et expérimentaux, ajustez la densité, les biais et la taille.</p>
+          </article>
+          <article>
+            <h3>Gestionnaire de fichiers</h3>
+            <p>Organisez vos labyrinthes, ajoutez des tags, exportez et archivez vos créations.</p>
+          </article>
+          <article>
+            <h3>Exploration en immersion</h3>
+            <p>Chargez un labyrinthe et explorez-le à la première personne grâce à la vue immersive.</p>
+          </article>
+          <article>
+            <h3>Résolution animée</h3>
+            <p>Choisissez un solveur, ajustez la vitesse et observez la progression en temps réel.</p>
+          </article>
+        </div>
+      </section>
 
-      <main class="content">
-        <section id="panel-overview" class="panel is-visible">
-          <div class="panel__header">
-            <h1>Atelier de labyrinthes complet</h1>
-            <p>Une plateforme centrale pour concevoir, explorer et résoudre des labyrinthes 2D/3D avec historique et visualisations en temps réel.</p>
-          </div>
-          <div class="cards">
-            <article class="card">
-              <h3>Générateur riche</h3>
-              <p>Choisissez parmi des algorithmes historiques ou modernes (Backtracking, Kruskal, Eller, Aldous-Broder, Prim). Ajustez densité, tresses, intersections et niveaux.</p>
-              <ul>
-                <li>Paramètres avancés & seeds.</li>
-                <li>Labyrinthes étendus & multi-étages.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>Exploration immersive</h3>
-              <p>Chargez vos labyrinthes et explorez-les en vue à la première personne. Mode cinématique, minimap, et indicateurs de progression.</p>
-              <ul>
-                <li>Chargement direct via la bibliothèque.</li>
-                <li>Audio & ambiance personnalisée.</li>
-              </ul>
-            </article>
-            <article class="card">
-              <h3>Résolution guidée</h3>
-              <p>Comparez les solveurs (A*, DFS, BFS, Trémaux, Wall follower). Ralentissez la cadence pour suivre chaque décision.</p>
-              <ul>
-                <li>Visualisation interne & externe.</li>
-                <li>Contrôle de la vitesse.</li>
-              </ul>
-            </article>
-          </div>
-          <div class="hero">
-            <div>
-              <h2>Commencer un nouveau projet</h2>
-              <p>Construisez un labyrinthe de démonstration avec plusieurs algorithmes et sauvegardez-le dans votre bibliothèque.</p>
+      <section id="view-generator" class="view">
+        <div class="section-header">
+          <h2>Générateur de labyrinthes</h2>
+          <p>Configurez un labyrinthe, comparez plusieurs algorithmes et sauvegardez votre création.</p>
+        </div>
+        <div class="generator-layout">
+          <form id="generator-form" class="card">
+            <h3>Paramètres</h3>
+            <label>
+              Nom du labyrinthe
+              <input type="text" name="name" placeholder="Ex. Forteresse émeraude" required />
+            </label>
+            <label>
+              Algorithme
+              <select name="algorithm"></select>
+            </label>
+            <div class="field-row">
+              <label>
+                Colonnes
+                <input type="number" name="cols" min="8" max="60" value="24" />
+              </label>
+              <label>
+                Rangées
+                <input type="number" name="rows" min="8" max="60" value="24" />
+              </label>
             </div>
-            <div class="hero__actions">
-              <button class="button">Nouveau labyrinthe</button>
-              <button class="button button--ghost">Importer</button>
+            <div class="field-row">
+              <label>
+                Étages
+                <input type="number" name="floors" min="1" max="5" value="1" />
+              </label>
+              <label>
+                Densité de murs (%)
+                <input type="number" name="density" min="20" max="80" value="50" />
+              </label>
+            </div>
+            <label>
+              Biais directionnel
+              <select name="bias">
+                <option value="balanced">Équilibré</option>
+                <option value="horizontal">Horizontal</option>
+                <option value="vertical">Vertical</option>
+              </select>
+            </label>
+            <label>
+              Complexité des cycles
+              <input type="range" name="loops" min="0" max="100" value="20" />
+            </label>
+            <button type="submit" class="primary">Générer &amp; sauvegarder</button>
+            <p class="hint">Les labyrinthes sont conservés localement dans votre navigateur.</p>
+          </form>
+          <div class="card">
+            <h3>Aperçu</h3>
+            <canvas id="generator-preview" width="320" height="320" aria-label="Aperçu du labyrinthe"></canvas>
+            <div class="card-footer">
+              <p id="generator-note">Sélectionnez un algorithme pour voir un aperçu.</p>
+              <button class="ghost" id="generator-refresh" type="button">Régénérer</button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="panel-generator" class="panel">
-          <div class="panel__header">
-            <h1>Générateur multi-algorithmes</h1>
-            <p>Paramétrez les algorithmes et expérimentez avec des labyrinthes étendus, multi-étages et asymétriques.</p>
+      <section id="view-files" class="view">
+        <div class="section-header">
+          <h2>Gestionnaire de fichiers</h2>
+          <p>Accédez à vos labyrinthes, gérez les tags et préparez l'exploration.</p>
+        </div>
+        <div class="files-layout">
+          <div class="card">
+            <h3>Bibliothèque</h3>
+            <div id="files-list" class="files-list"></div>
           </div>
-          <div class="grid">
-            <div class="card">
-              <h3>Algorithmes disponibles</h3>
-              <div class="pill-group">
-                <span class="pill">Backtracking</span>
-                <span class="pill">Prim</span>
-                <span class="pill">Kruskal</span>
-                <span class="pill">Aldous-Broder</span>
-                <span class="pill">Eller</span>
-                <span class="pill">Growing Tree</span>
-                <span class="pill">Recursive Division</span>
-              </div>
-              <button class="button button--ghost">Gérer la sélection</button>
-            </div>
-            <div class="card">
-              <h3>Paramètres avancés</h3>
-              <div class="form-row">
-                <label>Densité de couloirs</label>
-                <input type="range" min="0" max="100" value="65" />
-              </div>
-              <div class="form-row">
-                <label>Nombre d'étages</label>
-                <input type="number" min="1" max="12" value="3" />
-              </div>
-              <div class="form-row">
-                <label>Seed</label>
-                <input type="text" value="LABY-042" />
-              </div>
-              <button class="button">Générer</button>
-            </div>
-            <div class="card">
-              <h3>Étendue & topologie</h3>
-              <p>Activez les labyrinthes non-euclidiens, les jonctions verticales, et la création par chunks.</p>
-              <div class="toggle">
-                <input type="checkbox" checked />
-                <span>Multi-étages reliés</span>
-              </div>
-              <div class="toggle">
-                <input type="checkbox" />
-                <span>Zones organiques</span>
-              </div>
-              <div class="toggle">
-                <input type="checkbox" checked />
-                <span>Portails & raccourcis</span>
-              </div>
-            </div>
+          <div class="card" id="files-detail">
+            <h3>Détails</h3>
+            <p>Sélectionnez un labyrinthe pour afficher ses informations.</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section id="panel-files" class="panel">
-          <div class="panel__header">
-            <h1>Gestion des fichiers</h1>
-            <p>Créez, classez et versionnez vos labyrinthes. Chaque fiche peut inclure notes, tags et métadonnées de génération.</p>
-          </div>
-          <div class="library">
-            <div class="library__header">
-              <input class="search" placeholder="Rechercher un labyrinthe..." />
-              <button class="button">Nouveau dossier</button>
+      <section id="view-explorer" class="view">
+        <div class="section-header">
+          <h2>Exploration immersive</h2>
+          <p>Chargez un labyrinthe et explorez-le à la première personne.</p>
+        </div>
+        <div class="explorer-layout">
+          <div class="card">
+            <h3>Chargeur de labyrinthe</h3>
+            <label>
+              Labyrinthe
+              <select id="explorer-select"></select>
+            </label>
+            <button class="primary" id="explorer-load">Charger</button>
+            <div class="explorer-stats" id="explorer-stats"></div>
+            <div class="controls">
+              <button id="move-forward">Avancer</button>
+              <div>
+                <button id="turn-left">⟲</button>
+                <button id="turn-right">⟳</button>
+              </div>
+              <button id="move-back">Reculer</button>
             </div>
-            <div class="library__grid">
-              <article class="file-card">
-                <h3>Citadelle Souterraine</h3>
-                <p>Algorithme : Kruskal · 4 étages · Seed 9912</p>
-                <div class="file-card__meta">
-                  <span>Dernière édition : aujourd'hui</span>
-                  <button class="button button--ghost">Ouvrir</button>
-                </div>
-              </article>
-              <article class="file-card">
-                <h3>Relais Astral</h3>
-                <p>Algorithme : Aldous-Broder · 2 étages · Seed 143</p>
-                <div class="file-card__meta">
-                  <span>Dernière édition : hier</span>
-                  <button class="button button--ghost">Ouvrir</button>
-                </div>
-              </article>
-              <article class="file-card">
-                <h3>Galerie des Anciens</h3>
-                <p>Algorithme : Recursive Division · 1 étage · Seed 701</p>
-                <div class="file-card__meta">
-                  <span>Dernière édition : 12/06</span>
-                  <button class="button button--ghost">Ouvrir</button>
-                </div>
-              </article>
-            </div>
+            <p class="hint">Utilisez aussi les touches ZQSD ou les flèches pour vous déplacer.</p>
           </div>
-        </section>
+          <div class="card explorer-view">
+            <h3>Vue à la première personne</h3>
+            <div class="first-person" id="first-person">
+              <div class="wall wall-left"></div>
+              <div class="wall wall-front"></div>
+              <div class="wall wall-right"></div>
+              <div class="floor"></div>
+            </div>
+            <p class="hint" id="explorer-status">Chargez un labyrinthe pour commencer l'exploration.</p>
+          </div>
+        </div>
+      </section>
 
-        <section id="panel-explorer" class="panel">
-          <div class="panel__header">
-            <h1>Exploration à la première personne</h1>
-            <p>Chargez un labyrinthe et explorez-le en FPS. L'interface propose une boussole, une mini-carte, et des repères lumineux.</p>
+      <section id="view-solver" class="view">
+        <div class="section-header">
+          <h2>Résolution animée</h2>
+          <p>Choisissez un solveur, ajustez la vitesse et visualisez chaque étape.</p>
+        </div>
+        <div class="solver-layout">
+          <div class="card">
+            <h3>Configurer le solveur</h3>
+            <label>
+              Labyrinthe
+              <select id="solver-select"></select>
+            </label>
+            <label>
+              Algorithme de résolution
+              <select id="solver-algorithm">
+                <option value="bfs">BFS (largeur)</option>
+                <option value="dfs">DFS (profondeur)</option>
+                <option value="astar">A*</option>
+                <option value="dijkstra">Dijkstra</option>
+                <option value="wallfollower">Suivi de mur</option>
+              </select>
+            </label>
+            <label>
+              Vitesse (ms par étape)
+              <input type="range" id="solver-speed" min="20" max="300" value="120" />
+            </label>
+            <button class="primary" id="solver-start">Lancer</button>
+            <button class="ghost" id="solver-stop">Arrêter</button>
+            <p class="hint" id="solver-note">BFS et A* sont disponibles pour la démonstration actuelle.</p>
           </div>
-          <div class="split">
-            <div class="card">
-              <h3>Chargeur de labyrinthes</h3>
-              <p>Sélectionnez un fichier depuis la bibliothèque ou importez un format externe (.laby, .json, .maze).</p>
-              <button class="button">Parcourir les fichiers</button>
-              <button class="button button--ghost">Importer</button>
-            </div>
-            <div class="card">
-              <h3>HUD & ambiance</h3>
-              <ul>
-                <li>Affichage FPS, vitesse, altitude.</li>
-                <li>Intensité du brouillard.</li>
-                <li>Ambiance sonore adaptative.</li>
-              </ul>
-              <div class="form-row">
-                <label>Vitesse de déplacement</label>
-                <input type="range" min="1" max="10" value="6" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section id="panel-solver" class="panel">
-          <div class="panel__header">
-            <h1>Résolveur & visualisation</h1>
-            <p>Comparez les algorithmes avec une visualisation immersive, vitesse ajustable et statistiques de performance.</p>
-          </div>
-          <div class="grid">
-            <div class="card">
-              <h3>Algorithmes de résolution</h3>
-              <div class="pill-group">
-                <span class="pill">A*</span>
-                <span class="pill">BFS</span>
-                <span class="pill">DFS</span>
-                <span class="pill">Trémaux</span>
-                <span class="pill">Wall Follower</span>
-                <span class="pill">Dead-End Filling</span>
-              </div>
-              <button class="button button--ghost">Comparer</button>
-            </div>
-            <div class="card">
-              <h3>Contrôle de vitesse</h3>
-              <p>Ralenti pour visualiser chaque décision du solveur, du point de vue interne ou en surplomb.</p>
-              <div class="form-row">
-                <label>Vitesse</label>
-                <input type="range" min="1" max="100" value="35" />
-              </div>
-              <button class="button">Lancer la résolution</button>
-            </div>
-            <div class="card">
-              <h3>Mode de visualisation</h3>
-              <div class="toggle">
-                <input type="radio" name="view" checked />
-                <span>Vue interne immersive</span>
-              </div>
-              <div class="toggle">
-                <input type="radio" name="view" />
-                <span>Vue globale en surplomb</span>
-              </div>
-              <div class="toggle">
-                <input type="radio" name="view" />
-                <span>Comparaison multi-solveurs</span>
-              </div>
+          <div class="card">
+            <h3>Visualisation</h3>
+            <canvas id="solver-canvas" width="320" height="320" aria-label="Visualisation du solveur"></canvas>
+            <div class="card-footer">
+              <p id="solver-status">Chargez un labyrinthe pour commencer la résolution.</p>
             </div>
           </div>
-        </section>
-
-        <section id="panel-identity" class="panel">
-          <div class="panel__header">
-            <h1>Identité visuelle</h1>
-            <p>Une esthétique néo-futuriste inspirée des cartographies, avec contraste profond et accents lumineux.</p>
-          </div>
-          <div class="grid">
-            <div class="card">
-              <h3>Palette</h3>
-              <div class="swatches">
-                <span style="background:#0f172a"></span>
-                <span style="background:#1e293b"></span>
-                <span style="background:#38bdf8"></span>
-                <span style="background:#f472b6"></span>
-                <span style="background:#facc15"></span>
-              </div>
-              <p>Bleus profonds, cyan luminescent et accents magenta pour guider le regard.</p>
-            </div>
-            <div class="card">
-              <h3>Typographie</h3>
-              <p><strong>Space Grotesk</strong> pour une lecture claire des paramètres techniques et des rapports.</p>
-              <button class="button button--ghost">Télécharger la charte</button>
-            </div>
-            <div class="card">
-              <h3>Ambiance</h3>
-              <p>Effets de grille, glow subtil et surfaces vitrées pour une sensation de laboratoire.</p>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+        </div>
+      </section>
+    </main>
   </div>
-
   <script src="app.js"></script>
 </body>
 </html>
